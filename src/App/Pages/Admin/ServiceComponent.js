@@ -40,7 +40,6 @@ import {
   addService,
   updateService,
   getServices,
-  deleteServices,
   deleteService,
 } from "../../Helpers/Service";
 import { AddIcon, DeleteIcon, EditIcon, SpinnerIcon } from "@chakra-ui/icons";
@@ -324,7 +323,7 @@ export default function ServiceComponent() {
         </Modal>
 
         <Box margin="20px 10px">
-          <TableContainer>
+          <TableContainer bg="white" py={5}>
             <Table size="sm">
               <Thead>
                 <Tr>
@@ -439,7 +438,7 @@ const AlertDialogExample = ({ id, getservices, item }) => {
   return (
     <>
       <Button variant="ghost" onClick={onOpen}>
-        <DeleteIcon />
+        <DeleteIcon color="red" />
       </Button>
 
       <AlertDialog

@@ -7,7 +7,6 @@ import {
   Input,
   Stack,
   useColorModeValue,
-  HStack,
   Avatar,
   AvatarBadge,
   IconButton,
@@ -15,10 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import Base from "../../Components/Base";
-import { isAuthenticated } from "../../Helpers/Auth";
 
 export default function Profile() {
-  const { user } = isAuthenticated();
   return (
     <>
       <Base>

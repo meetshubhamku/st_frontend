@@ -1,12 +1,13 @@
-import React from "react";
-import Navbar from "./Navbar";
+import React, { Suspense } from "react";
+import CustomLoader from "./CustomLoader";
 import SideNavBar from "./SideNavBar";
 
 export default function Base({ children }) {
   return (
     <>
-      <SideNavBar>{children}</SideNavBar>
-      {/* <Navbar /> */}
+      <Suspense fallback={<CustomLoader />}>
+        <SideNavBar>{children}</SideNavBar>
+      </Suspense>
     </>
   );
 }

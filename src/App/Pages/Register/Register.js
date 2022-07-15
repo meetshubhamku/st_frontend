@@ -176,8 +176,8 @@ export default function Register({ role, userType }) {
                 </FormLabel>
 
                 <Input
-                  id="password"
                   type="password"
+                  id="password"
                   color="white"
                   name="password"
                   placeholder="*********"
@@ -196,8 +196,8 @@ export default function Register({ role, userType }) {
                   Confirm Password
                 </FormLabel>
                 <Input
-                  id="cpass"
                   type="password"
+                  id="cpass"
                   color="white"
                   placeholder="*********"
                   name="confirm_password"

@@ -21,7 +21,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { Link, NavLink, useHistory, withRouter } from "react-router-dom";
 import {
   FiHome,
   FiTrendingUp,
@@ -88,8 +88,8 @@ const SidebarContent = ({ onClose, history, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      // bg={useColorModeValue("white", "gray.900")}
-      bg={"green.100"}
+      bg={useColorModeValue("white", "gray.900")}
+      // bg={"green.100"}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
@@ -105,7 +105,7 @@ const SidebarContent = ({ onClose, history, ...rest }) => {
       </Flex>
 
       {NavMenu.menu.map((link) => (
-        <NavItem key={link.label}>
+        <NavItem key={link.label} icon={link.icon}>
           <Link to={link.to}>{link.label}</Link>
         </NavItem>
       ))}
@@ -128,7 +128,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "white",
+          bg: "green.100",
           color: "black",
         }}
         {...rest}
@@ -158,8 +158,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      // bg={useColorModeValue("white", "gray.900")}
-      bg={"green.100"}
+      bg={useColorModeValue("white", "gray.900")}
+      // bg={"green.100"}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -227,7 +227,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem>
+                <NavLink to="/dashboard/admin/profile">Profile</NavLink>
+              </MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />

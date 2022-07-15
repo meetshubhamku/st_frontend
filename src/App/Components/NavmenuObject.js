@@ -1,4 +1,10 @@
 import { FiHome } from "react-icons/fi";
+import { MdOutlineDashboard, MdOutlineLocalOffer } from "react-icons/md";
+import { BsList } from "react-icons/bs";
+import { BiUser } from "react-icons/bi";
+import { ImProfile } from "react-icons/im";
+import { SiSimpleanalytics } from "react-icons/si";
+import { GrAnnounce } from "react-icons/gr";
 
 const NavmenuObject = {
   admin: {
@@ -6,28 +12,43 @@ const NavmenuObject = {
       {
         label: "Dashboard",
         to: "/dashboard/admin",
-        icon: FiHome,
+        icon: MdOutlineDashboard,
+      },
+      {
+        label: "Analytics",
+        to: "/dashboard/admin/analytics",
+        icon: SiSimpleanalytics,
       },
 
       {
         label: "Service",
         to: "/dashboard/admin/service",
-        icon: FiHome,
+        icon: BsList,
       },
       {
         label: "Customer",
         to: "/dashboard/admin/customer",
-        icon: FiHome,
+        icon: BiUser,
       },
       {
         label: "Profile",
         to: "/dashboard/admin/profile",
-        icon: FiHome,
+        icon: ImProfile,
+      },
+      // {
+      //   label: "Appointment",
+      //   to: "/",
+      //   icon: FiHome,
+      // },
+      {
+        label: "Offer",
+        to: "/dashboard/admin/offer",
+        icon: MdOutlineLocalOffer,
       },
       {
-        label: "Appointment",
-        to: "/",
-        icon: FiHome,
+        label: "Announcement",
+        to: "/dashboard/admin/announcement",
+        icon: GrAnnounce,
       },
     ],
   },

@@ -246,7 +246,7 @@ export default function CategoryComponent() {
       </Box>
 
       <Box margin="20px 10px">
-        <TableContainer>
+        <TableContainer bg="white" py={5}>
           <Table size="sm">
             <Thead>
               <Tr>
@@ -352,7 +352,7 @@ const AlertDialogExample = ({ id, getCategories, item }) => {
   return (
     <>
       <Button variant="ghost" onClick={onOpen}>
-        <DeleteIcon />
+        <DeleteIcon color="red" />
       </Button>
 
       <AlertDialog

@@ -1,11 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  CircularProgressLabel,
-  GridItem,
-  Stack,
-  StatHelpText,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import {
   chakra,
   Flex,
@@ -15,15 +8,13 @@ import {
   StatNumber,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
 import { BsPerson } from "react-icons/bs";
-import { FiServer, FiUsers } from "react-icons/fi";
-import { GoLocation } from "react-icons/go";
+import { FiUsers } from "react-icons/fi";
 import { BiListCheck } from "react-icons/bi";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { getUsers, getEmployees } from "../../Helpers/Admin";
 import { getServices } from "../../Helpers/Service";
+import { FcAreaChart } from "react-icons/fc";
 
 export default function AdminCardComponent() {
   const [userList, setUserList] = useState([]);
@@ -71,7 +62,12 @@ export default function AdminCardComponent() {
   return (
     <>
       <Box maxW="7xl" mx={"auto"} pt={1} px={{ base: 2, sm: 12, md: 17 }}>
-        <chakra.h1 fontSize={"4xl"} py={10} fontWeight={"bold"}>
+        <chakra.h1
+          fontSize={"4xl"}
+          py={10}
+          fontWeight={"bold"}
+          color="green.400"
+        >
           Dashboard
         </chakra.h1>
         <SimpleGrid
@@ -79,7 +75,7 @@ export default function AdminCardComponent() {
           spacing={{ base: 5, lg: 8 }}
         >
           <StatsCard
-            title={"Customers"}
+            title={"Active Customers"}
             stat={userList.length}
             icon={<BsPerson size={"3em"} />}
             statColor="red.300"
@@ -88,7 +84,7 @@ export default function AdminCardComponent() {
           />
 
           <StatsCard
-            title={"Services"}
+            title={"Total Services"}
             stat={serviceList.length}
             icon={<BiListCheck size={"3em"} />}
             statColor="orange.300"
@@ -96,7 +92,7 @@ export default function AdminCardComponent() {
             cardColor="green.100"
           />
           <StatsCard
-            title={"Employees"}
+            title={"Total Employees"}
             stat={employeesList.length}
             icon={<FiUsers size={"3em"} />}
             statColor="blue.300"
@@ -119,14 +115,15 @@ function StatsCard(props) {
       // border={"1px solid"}
       // borderColor={useColorModeValue("gray.800", "gray.500")}
       rounded={"lg"}
-      bg={cardColor}
+      // bg={cardColor}
+      bg={useColorModeValue("white", "green.900")}
     >
       <Flex justifyContent={"space-between"}>
         <Box pl={{ base: 2, md: 4 }}>
           <StatLabel fontWeight={"medium"} isTruncated color={titleColor}>
             {title}
           </StatLabel>
-          <StatNumber fontSize={"4xl"} fontWeight={"bolder"} color={statColor}>
+          <StatNumber fontSize={"5xl"} fontWeight={"bold"} color={statColor}>
             {stat}
           </StatNumber>
         </Box>
