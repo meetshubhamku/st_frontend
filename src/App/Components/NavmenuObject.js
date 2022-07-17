@@ -35,11 +35,6 @@ const NavmenuObject = {
         to: "/dashboard/admin/profile",
         icon: ImProfile,
       },
-      // {
-      //   label: "Appointment",
-      //   to: "/",
-      //   icon: FiHome,
-      // },
       {
         label: "Offer",
         to: "/dashboard/admin/offer",
@@ -69,14 +64,24 @@ const NavmenuObject = {
   customer: {
     menu: [
       {
-        label: "customer",
-        to: "/",
+        label: "Dashboard",
+        to: "/dashboard/user",
         icon: FiHome,
       },
       {
-        label: "customer",
-        to: "/",
-        icon: FiHome,
+        label: "Appointments",
+        to: "/dashboard/user/appointment",
+        icon: ImProfile,
+      },
+      {
+        label: "Profile",
+        to: "/dashboard/user/profile",
+        icon: ImProfile,
+      },
+      {
+        label: "Services",
+        to: "/dashboard/user/service",
+        icon: ImProfile,
       },
     ],
   },

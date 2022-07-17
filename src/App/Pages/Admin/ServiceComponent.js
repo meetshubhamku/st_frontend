@@ -67,7 +67,7 @@ export default function ServiceComponent() {
     price: Yup.string()
       .required("Service price required")
       .matches(/^[0-9]*$/, "Invalid service price"),
-    category_id: Yup.number().required("Service category required").min(1),
+    category_id: Yup.number().required("Service required"),
   });
 
   const formik = useFormik({

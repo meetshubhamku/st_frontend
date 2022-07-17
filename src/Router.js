@@ -10,6 +10,10 @@ import NewRegister from "./App/Pages/Register/NewRegister";
 import NewLogin from "./App/Pages/Login/NewLogin";
 import AdminChartComponent from "./App/Pages/Admin/AdminChartComponent";
 import AdminAnnouncements from "./App/Pages/Admin/AdminAnnouncements";
+import UserDashboard from "./App/Pages/User/UserDashboard";
+import UserServiceComponent from "./App/Pages/User/UserServiceComponent";
+import UserAppointmentComponent from "./App/Pages/User/UserAppointmentComponent";
+import EmployeeDashboard from "./App/Pages/Employee/EmployeeDashboard";
 
 export default function Router() {
   return (
@@ -61,6 +65,23 @@ export default function Router() {
 
         <Route path="/dashboard/admin/offer" exact>
           <AdminOfferComponent />
+        </Route>
+
+        <Route path="/dashboard/user" exact>
+          <UserDashboard />
+        </Route>
+        <Route path="/dashboard/user/profile" exact>
+          <Profile />
+        </Route>
+        <Route path="/dashboard/user/service" exact>
+          <UserServiceComponent />
+        </Route>
+        <Route path="/dashboard/user/appointment" exact>
+          <UserAppointmentComponent />
+        </Route>
+
+        <Route path="/dashboard/employee" exact>
+          <EmployeeDashboard />
         </Route>
       </Switch>
     </>
