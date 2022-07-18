@@ -25,11 +25,14 @@ export const updateAppointment = async (data) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      category_id: data.category_id,
-      name: data.name,
       id: data.id,
-      description: data.description,
-      price: data.price,
+      note: data.note,
+      date: data.date,
+      time: data.time,
+      status: data.status,
+      employee_id: data.employee_id,
+      user_id: data.user_id,
+      service_id: data.service_id,
     }),
   });
   return res.json();

@@ -11,9 +11,10 @@ import NewLogin from "./App/Pages/Login/NewLogin";
 import AdminChartComponent from "./App/Pages/Admin/AdminChartComponent";
 import AdminAnnouncements from "./App/Pages/Admin/AdminAnnouncements";
 import UserDashboard from "./App/Pages/User/UserDashboard";
-import UserServiceComponent from "./App/Pages/User/UserServiceComponent";
+import UserServiceComponent from "./App/Pages/User/Service/UserServiceComponent";
 import UserAppointmentComponent from "./App/Pages/User/UserAppointmentComponent";
 import EmployeeDashboard from "./App/Pages/Employee/EmployeeDashboard";
+import AdminAppointmentComponent from "./App/Pages/Admin/AdminAppointmentComponent";
 
 export default function Router() {
   return (
@@ -65,6 +66,10 @@ export default function Router() {
 
         <Route path="/dashboard/admin/offer" exact>
           <AdminOfferComponent />
+        </Route>
+
+        <Route path="/dashboard/admin/appointment" exact>
+          <AdminAppointmentComponent />
         </Route>
 
         <Route path="/dashboard/user" exact>

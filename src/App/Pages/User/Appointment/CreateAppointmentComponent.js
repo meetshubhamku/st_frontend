@@ -17,7 +17,7 @@ import { useFormik } from "formik";
 import { isAuthenticated } from "../../../Helpers/Auth";
 import moment from "moment";
 import { SpinnerIcon } from "@chakra-ui/icons";
-import { addAppointment, getAppointment } from "../../../Helpers/Appointment";
+import { addAppointment } from "../../../Helpers/Appointment";
 
 export default function CreateAppointmentComponent() {
   const { user } = isAuthenticated();
@@ -31,8 +31,33 @@ export default function CreateAppointmentComponent() {
     date: Yup.date()
       .required()
       .min(moment().subtract(1, "d"), "Please choose a future date"),
-    time: Yup.string().required("Please provide a time"),
+    time: Yup.string()
+      .required("Please provide time")
+      .test("future-time", "Invalid time.", (value, parent) => {
+        if (
+          moment(parent.parent.date).format("YYYY:MM:DD") ===
+          moment().format("YYYY:MM:DD")
+        ) {
+          if (value == undefined) {
+            return false;
+          }
+          const time = value.split(":");
+          if (time[0] >= 1 && time[0] <= 11) {
+            value = value.toString() + " AM";
+          } else {
+            value = value.toString() + " PM";
+          }
+          if (value > moment().format("HH:mm A")) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      }),
   });
+
   const getServiceList = async () => {
     const res = await getServices();
     console.log("service res : ", res);
@@ -116,7 +141,7 @@ export default function CreateAppointmentComponent() {
     <>
       <Box maxW={400} bg="white" px={10} py={5}>
         <form onSubmit={formik.handleSubmit}>
-          <FormControl mt={2}>
+          <FormControl my={2}>
             <FormLabel htmlFor="first-name">Service</FormLabel>
             <Select
               id="service_id"
@@ -137,7 +162,7 @@ export default function CreateAppointmentComponent() {
               </FormHelperText>
             ) : null}
           </FormControl>
-          <FormControl mt={2}>
+          <FormControl my={2}>
             <FormLabel htmlFor="first-name">Employee</FormLabel>
             <Select
               id="employee_id"
@@ -159,7 +184,7 @@ export default function CreateAppointmentComponent() {
               </FormHelperText>
             ) : null}
           </FormControl>
-          <FormControl>
+          <FormControl my={2}>
             <FormLabel htmlFor="first-name">Note (If any)</FormLabel>
             <Input
               id="note"
@@ -172,7 +197,7 @@ export default function CreateAppointmentComponent() {
               <FormHelperText color="red">{formik.errors.note}</FormHelperText>
             ) : null}
           </FormControl>
-          <FormControl>
+          <FormControl my={2}>
             <FormLabel htmlFor="first-name">Date</FormLabel>
             <input
               style={{
@@ -190,7 +215,7 @@ export default function CreateAppointmentComponent() {
             ) : null}
           </FormControl>
 
-          <FormControl>
+          <FormControl my={2}>
             <FormLabel htmlFor="first-name">Time (eg: 02:22:pm)</FormLabel>
             <input
               style={{
@@ -199,11 +224,17 @@ export default function CreateAppointmentComponent() {
               }}
               type="time"
               placeholder="02:22:pm"
+              min={"10:00"}
+              max="21:00"
               id="time"
               name="time"
               onChange={formik.handleChange}
               value={formik.values.time}
             />
+            <FormLabel htmlFor="time" fontSize="small">
+              Please provide time between 10 am to 9 pm.
+            </FormLabel>
+
             {formik.errors.time ? (
               <FormHelperText color="red">{formik.errors.time}</FormHelperText>
             ) : null}

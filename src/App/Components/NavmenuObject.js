@@ -1,7 +1,7 @@
 import { FiHome } from "react-icons/fi";
 import { MdOutlineDashboard, MdOutlineLocalOffer } from "react-icons/md";
 import { BsList } from "react-icons/bs";
-import { BiUser } from "react-icons/bi";
+import { BiUser, BiNotepad } from "react-icons/bi";
 import { ImProfile } from "react-icons/im";
 import { SiSimpleanalytics } from "react-icons/si";
 import { GrAnnounce } from "react-icons/gr";
@@ -13,6 +13,11 @@ const NavmenuObject = {
         label: "Dashboard",
         to: "/dashboard/admin",
         icon: MdOutlineDashboard,
+      },
+      {
+        label: "Appointments",
+        to: "/dashboard/admin/appointment",
+        icon: BiNotepad,
       },
       {
         label: "Analytics",
