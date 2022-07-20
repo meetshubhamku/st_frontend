@@ -1,49 +1,81 @@
-import React from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import { Box, chakra } from "@chakra-ui/react";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-export const data = {
-  labels: ["Appointments", "Customers", "Profit", "Loss", "Services", "Offers"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "#F56565",
-        "#4299e1",
-        "#ECC94B",
-        "#68D391",
-        "#9F7AEA",
-        "#ED8936",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+import { Box, Text } from "@chakra-ui/react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import ReactApexChart from "react-apexcharts";
+import { getAppointmentsByDate } from "../../../Helpers/Appointment";
 
 export default function PieChart() {
+  const config = {
+    series: [],
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: [],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  };
+  const [chartData, setChartData] = useState(config);
+
+  const getChartDataFunction = async () => {
+    const res = await getAppointmentsByDate(
+      moment().startOf("week").format("YYYY-MM-DD"),
+      moment().endOf("week").format("YYYY-MM-DD")
+    );
+    if (res.success === true) {
+      let tempLables = [];
+      let tempSeries = [];
+      let tempData = res.data;
+      tempData.map((item) => {
+        tempLables.push(item.status);
+        tempSeries.push(item.count);
+      });
+      setChartData({
+        ...chartData,
+        series: tempSeries,
+        options: {
+          labels: tempLables,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    getChartDataFunction();
+  }, []);
   return (
     <>
-      <Box maxW="sm" pt={1} px={{ base: 2, sm: 12, md: 17 }}>
-        <chakra.h1
-          fontSize={"4xl"}
-          py={10}
-          fontWeight={"bold"}
-          color="green.400"
-        >
-          Statistics
-        </chakra.h1>
-        <Pie data={data} />
+      <Box bg="white" maxW="sm" py={5} shadow="xl" mx={2} flex={1}>
+        <div id="chart">
+          {chartData.series.length > 0 && (
+            <ReactApexChart
+              options={chartData.options}
+              series={chartData.series}
+              type="pie"
+              width={380}
+            />
+          )}
+        </div>
+        <Text textAlign={"center"} mt={3}>
+          Service stats this week
+        </Text>
+        <Text textAlign={"center"} fontSize="xs" my={1}>
+          {moment().startOf("week").format("MMM DD, YYYY")} -{" "}
+          {moment().endOf("week").format("MMM DD, YYYY")}
+        </Text>
       </Box>
     </>
   );

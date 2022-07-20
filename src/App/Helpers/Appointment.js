@@ -51,6 +51,26 @@ export const getAppointments = async () => {
   return res.json();
 };
 
+export const getAppointmentsByDate = async (startDate, endDate) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointments/date`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        startDate,
+        endDate,
+      }),
+    }
+  );
+  return res.json();
+};
+
 export const deleteAppointment = async (id) => {
   const { user, token } = isAuthenticated();
   const res = await fetch(`${API}/${user.id}/${user.userType}/appointment`, {

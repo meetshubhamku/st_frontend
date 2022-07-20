@@ -10,20 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { BsPerson } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
-import { BiListCheck } from "react-icons/bi";
+import { BiListCheck, BiTask } from "react-icons/bi";
 import React, { useEffect, useState } from "react";
 import { getUsers, getEmployees } from "../../Helpers/Admin";
 import { getServices } from "../../Helpers/Service";
 import { FcAreaChart } from "react-icons/fc";
+import { getAppointments } from "../../Helpers/Appointment";
 
 export default function AdminCardComponent() {
   const [userList, setUserList] = useState([]);
   const [employeesList, setEmployeesList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
+  const [appointmentList, setApointmentServiceList] = useState([]);
+
   useEffect(() => {
     getUsersApi();
     getEmployeesApi();
     getServiceList();
+    getAppointmentApi();
   }, []);
   const getServiceList = async () => {
     const res = await getServices();
@@ -34,7 +38,6 @@ export default function AdminCardComponent() {
       setServiceList([]);
     }
   };
-
   const getUsersApi = async () => {
     try {
       const res = await getUsers();
@@ -52,10 +55,19 @@ export default function AdminCardComponent() {
   const getEmployeesApi = async () => {
     try {
       const res = await getEmployees();
-      setEmployeesList(res ? res : []);
+      setEmployeesList(res.success ? res.data : []);
       console.log("employee data ; ", res);
     } catch (err) {
       console.error("Error from getEmployeeAPi : ", err);
+    }
+  };
+  const getAppointmentApi = async () => {
+    try {
+      const res = await getAppointments();
+      setApointmentServiceList(res ? res.data : []);
+      console.log("appointment data ; ", res);
+    } catch (err) {
+      console.error("Error from getAppointments : ", err);
     }
   };
 
@@ -96,6 +108,14 @@ export default function AdminCardComponent() {
             stat={employeesList.length}
             icon={<FiUsers size={"3em"} />}
             statColor="blue.300"
+            titleColor="green.900"
+            cardColor="green.100"
+          />
+          <StatsCard
+            title={"Total Appointments"}
+            stat={appointmentList.length}
+            icon={<BiTask size={"3em"} />}
+            statColor="green.300"
             titleColor="green.900"
             cardColor="green.100"
           />
