@@ -17,6 +17,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { random } from "faker";
 import React, { Suspense, useState } from "react";
 import { useEffect } from "react";
 import { AiOutlineReload } from "react-icons/ai";
@@ -124,8 +125,7 @@ export default function CustomerComponent() {
                                 <Avatar
                                   size="md"
                                   name="Dan Abrahmov"
-                                  src={`https://joeschmoe.io/api/v1/${item.firstname}`}
-                                  // src={`https://i.pravatar.cc/300`}
+                                  src={`https://i.pravatar.cc/300?img=${index}`}
                                 />
                               </WrapItem>
                             </Wrap>

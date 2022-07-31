@@ -70,7 +70,7 @@ export default function CreateAppointmentComponent() {
   const getEmployeesApi = async () => {
     try {
       const res = await getEmployees();
-      setEmployeesList(res ? res : []);
+      setEmployeesList(res.success ? res.data : []);
       console.log("employee data ; ", res);
     } catch (err) {
       console.error("Error from getEmployeeAPi : ", err);

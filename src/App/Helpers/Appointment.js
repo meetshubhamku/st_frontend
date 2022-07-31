@@ -38,6 +38,62 @@ export const updateAppointment = async (data) => {
   return res.json();
 };
 
+export const getAppointmentByUser = async () => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointment/user`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: user.id,
+      }),
+    }
+  );
+  return res.json();
+};
+export const getAppointmentByStatusOpen = async () => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointments/status/open`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: user.id,
+      }),
+    }
+  );
+  return res.json();
+};
+
+export const cancelAppointment = async (data) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointment/cancel`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        ids: data,
+      }),
+    }
+  );
+  return res.json();
+};
+
 export const getAppointments = async () => {
   const { user, token } = isAuthenticated();
   const res = await fetch(`${API}/${user.id}/${user.userType}/appointments`, {
@@ -55,6 +111,66 @@ export const getAppointmentsByDate = async (startDate, endDate) => {
   const { user, token } = isAuthenticated();
   const res = await fetch(
     `${API}/${user.id}/${user.userType}/appointments/date`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        startDate,
+        endDate,
+      }),
+    }
+  );
+  return res.json();
+};
+
+export const getAppointmentsByServiceCount = async (startDate, endDate) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointments/service/count`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        startDate,
+        endDate,
+      }),
+    }
+  );
+  return res.json();
+};
+
+export const getAppointmentsByMonth = async (startDate, endDate) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointments/date/month`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        startDate,
+        endDate,
+      }),
+    }
+  );
+  return res.json();
+};
+
+export const getAppointmentsByServiceAndDate = async (startDate, endDate) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(
+    `${API}/${user.id}/${user.userType}/appointments/service/date`,
     {
       method: "POST",
       headers: {

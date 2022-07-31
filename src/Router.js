@@ -15,6 +15,7 @@ import UserServiceComponent from "./App/Pages/User/Service/UserServiceComponent"
 import UserAppointmentComponent from "./App/Pages/User/UserAppointmentComponent";
 import EmployeeDashboard from "./App/Pages/Employee/EmployeeDashboard";
 import AdminAppointmentComponent from "./App/Pages/Admin/AdminAppointmentComponent";
+import PaymentDashboard from "./App/Pages/Admin/Payment/PaymentDashboard";
 
 export default function Router() {
   return (
@@ -60,6 +61,11 @@ export default function Router() {
         <Route path="/dashboard/admin/profile" exact>
           <Profile />
         </Route>
+
+        <Route path="/dashboard/admin/payment" exact>
+          <PaymentDashboard />
+        </Route>
+
         <Route path="/dashboard/admin/customer" exact>
           <CustomerComponent />
         </Route>

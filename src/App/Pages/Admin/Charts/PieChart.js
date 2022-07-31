@@ -8,9 +8,35 @@ export default function PieChart() {
   const config = {
     series: [],
     options: {
+      noData: {
+        text: "No data text",
+        align: "center",
+        verticalAlign: "middle",
+      },
+      legend: {
+        position: "bottom",
+      },
       chart: {
         width: 380,
         type: "pie",
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true | '<img src="/static/icons/reset.png" width="20">',
+            customIcons: [],
+          },
+          export: {
+            csv: {
+              filename: "Test",
+            },
+          },
+        },
       },
       labels: [],
       responsive: [
@@ -43,6 +69,7 @@ export default function PieChart() {
         tempLables.push(item.status);
         tempSeries.push(item.count);
       });
+
       setChartData({
         ...chartData,
         series: tempSeries,

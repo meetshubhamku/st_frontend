@@ -22,6 +22,7 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
+import { GiComb } from "react-icons/gi";
 
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
@@ -59,7 +60,9 @@ export default function Header() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <NavLink to="/">Logo</NavLink>
+            <NavLink to="/">
+              <Text>Logo</Text>
+            </NavLink>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>

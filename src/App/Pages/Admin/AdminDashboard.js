@@ -4,6 +4,7 @@ import AdminCardComponent from "./AdminCardComponent";
 import CustomLoader from "../../Components/CustomLoader";
 import { Spinner } from "@chakra-ui/react";
 import MultitypeChart from "./Charts/MultitypeChart";
+import AppointmentScheduler from "./Appointment/AppointmentScheduler";
 
 export default function AdminDashboard() {
   return (
@@ -11,7 +12,8 @@ export default function AdminDashboard() {
       <Suspense fallback={<Spinner />}>
         <Base>
           <AdminCardComponent />
-          <MultitypeChart />
+          {/* <MultitypeChart /> */}
+          <AppointmentScheduler />
         </Base>
       </Suspense>
     </>

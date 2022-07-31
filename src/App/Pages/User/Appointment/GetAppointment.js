@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import {
   deleteAppointment,
+  getAppointmentByUser,
   getAppointments,
   updateAppointment,
 } from "../../../Helpers/Appointment";
@@ -60,7 +61,7 @@ export default function GetAppointment() {
   };
 
   const getAppointentmentListFunction = async () => {
-    const res = await getAppointments();
+    const res = await getAppointmentByUser();
     if (res.success === true) {
       setAppointmentList(res.data);
     } else {
@@ -172,6 +173,8 @@ export default function GetAppointment() {
                 <b>{moment(item.date).format("MMMM DD, YYYY")}</b> at{" "}
                 <b> {moment(item.time, "HH:mm:ss").format("LT")}</b>
                 <br />
+                <b>Id : {item.id}</b>
+                <br />
                 <b>
                   Status : <Badge colorScheme="orange">{item.status}</Badge>
                 </b>
@@ -260,7 +263,7 @@ function UpdateModal({ item, getAppointentmentListFunction, isEnabled }) {
   const getEmployeesApi = async () => {
     try {
       const res = await getEmployees();
-      setEmployeesList(res ? res : []);
+      setEmployeesList(res.success ? res.data : []);
       console.log("employee data ; ", res);
     } catch (err) {
       console.error("Error from getEmployeeAPi : ", err);

@@ -15,7 +15,12 @@ const NavmenuObject = {
         icon: MdOutlineDashboard,
       },
       {
-        label: "Appointments",
+        label: "Payment",
+        to: "/dashboard/admin/payment",
+        icon: MdOutlineDashboard,
+      },
+      {
+        label: "Appointment",
         to: "/dashboard/admin/appointment",
         icon: BiNotepad,
       },
@@ -40,11 +45,11 @@ const NavmenuObject = {
         to: "/dashboard/admin/profile",
         icon: ImProfile,
       },
-      {
-        label: "Offer",
-        to: "/dashboard/admin/offer",
-        icon: MdOutlineLocalOffer,
-      },
+      // {
+      //   label: "Offer",
+      //   to: "/dashboard/admin/offer",
+      //   icon: MdOutlineLocalOffer,
+      // },
       {
         label: "Announcement",
         to: "/dashboard/admin/announcement",

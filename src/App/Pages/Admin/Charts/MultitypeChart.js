@@ -1,7 +1,9 @@
 import { Box, Text } from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
+import { useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import { getAppointmentsByServiceAndDate } from "../../../Helpers/Appointment";
 
 export default function MultitypeChart() {
   const chartData = {
@@ -69,6 +71,30 @@ export default function MultitypeChart() {
       },
     },
   };
+
+  const getAnalytics = async () => {
+    const res = await getAppointmentsByServiceAndDate(
+      moment().startOf("week").format("YYYY-MM-DD"),
+      moment().endOf("week").format("YYYY-MM-DD")
+    );
+    if (res.success) {
+      console.log(":mul : ", res.data);
+      let xlabels = [];
+      let series = [];
+
+      const data = res.data;
+      data.map((item) => {
+        xlabels.push(item.date);
+        series.push({
+          name: item.service.name,
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    getAnalytics();
+  });
   return (
     <>
       <Box bg={"white"} shadow="xl" my={5} py={5} px={5} mx={5}>

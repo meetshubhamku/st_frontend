@@ -73,15 +73,15 @@ export default function AdminCardComponent() {
 
   return (
     <>
-      <Box maxW="7xl" mx={"auto"} pt={1} px={{ base: 2, sm: 12, md: 17 }}>
-        <chakra.h1
+      <Box maxW="7xl" mx={"auto"} pt={1} px={{ base: 2, sm: 12, md: 1 }}>
+        {/* <chakra.h1
           fontSize={"4xl"}
           py={10}
           fontWeight={"bold"}
           color="green.400"
         >
           Dashboard
-        </chakra.h1>
+        </chakra.h1> */}
         <SimpleGrid
           columns={{ base: 1, md: 3, lg: 4 }}
           spacing={{ base: 5, lg: 8 }}

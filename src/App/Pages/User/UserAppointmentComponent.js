@@ -11,7 +11,6 @@ export default function UserAppointmentComponent() {
         <TabList>
           <Tab>View Appointment</Tab>
           <Tab>New Appointment</Tab>
-          <Tab>Three</Tab>
         </TabList>
 
         <TabPanels>
@@ -20,9 +19,6 @@ export default function UserAppointmentComponent() {
           </TabPanel>
           <TabPanel>
             <CreateAppointmentComponent />
-          </TabPanel>
-          <TabPanel>
-            <p>three!</p>
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -32,7 +32,6 @@ const Login = ({ userType }) => {
     validationSchema: loginupSchema,
     onSubmit: async (values, onSubmitProp) => {
       const res = await signin(values);
-      console.log("res : ", res);
 
       if (res.success === true) {
         SuccessToast({

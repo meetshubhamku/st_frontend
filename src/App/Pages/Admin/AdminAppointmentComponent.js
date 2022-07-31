@@ -1,12 +1,7 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Badge,
   Box,
   Button,
+  Flex,
   Select,
   Table,
   TableContainer,
@@ -22,7 +17,11 @@ import {
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Base from "../../Components/Base";
-import { getAppointments, updateAppointment } from "../../Helpers/Appointment";
+import {
+  cancelAppointment,
+  getAppointments,
+  updateAppointment,
+} from "../../Helpers/Appointment";
 import appStatus from "../User/Appointment/AppoinentStatus";
 
 export default function AdminAppointmentComponent() {
@@ -31,9 +30,33 @@ export default function AdminAppointmentComponent() {
   const getAppointentmentListFunction = async () => {
     const res = await getAppointments();
     if (res.success === true) {
+      if (res.data.length > 0) {
+        cancelPastAppointment(res.data);
+      }
       setAppointmentList(res.data);
     } else {
       setAppointmentList([]);
+    }
+  };
+
+  const cancelPastAppointment = async (data) => {
+    const dataWithoutClosedStatus = data.filter((data) => {
+      return data.status !== "Closed";
+    });
+    if (dataWithoutClosedStatus.length > 0) {
+      const ids = [];
+      dataWithoutClosedStatus.map((item) => {
+        if (
+          moment(item.date).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD")
+        ) {
+          ids.push(item.id);
+        }
+      });
+
+      if (ids.length > 0) {
+        const res = await cancelAppointment(ids);
+        console.log("can data : ", res);
+      }
     }
   };
 
@@ -59,6 +82,18 @@ export default function AdminAppointmentComponent() {
         description: "Some error occured. Please try again.",
       });
     }
+  };
+
+  const filterAppointmentWithStatus = async (status) => {
+    let newData = await getAppointments();
+    newData = newData.data;
+    if (status !== "All") {
+      newData = newData.filter((item) => {
+        return item.status === status;
+      });
+    }
+
+    setAppointmentList(newData);
   };
 
   const toast = useToast();
@@ -96,6 +131,23 @@ export default function AdminAppointmentComponent() {
         <Text fontSize="4xl" fontWeight="bold">
           Appointments
         </Text>
+        <Box my={2} py={2}>
+          <Flex justifyContent={"space-between"}>
+            <Select
+              variant="outline"
+              maxW={200}
+              onChange={(event) => {
+                filterAppointmentWithStatus(event.target.value);
+              }}
+            >
+              {appStatus.map((item, index) => (
+                <option key={index} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </Select>
+          </Flex>
+        </Box>
         <TableContainer bg={"white"} px={5} py={5}>
           <Table size="sm">
             <Thead>
@@ -105,6 +157,7 @@ export default function AdminAppointmentComponent() {
                 <Th fontWeight={"bold"}>Price</Th>
                 <Th fontWeight={"bold"}>Date Time</Th>
                 <Th fontWeight={"bold"}>Status</Th>
+                <Th fontWeight={"bold"}>Payment</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -138,17 +191,28 @@ export default function AdminAppointmentComponent() {
                           <option
                             key={index}
                             value={stat.value}
-                            disabled={stat.label === appStatus[0].label}
+                            // disabled={stat.label === appStatus[5].label}
                           >
                             {stat.label}
                           </option>
                         ))}
                       </Select>
                     </Td>
+                    <Td>
+                      <Button
+                        variant="link"
+                        disabled={item.status === appStatus[5].value}
+                        onClick={() => {
+                          alert("payment");
+                        }}
+                      >
+                        Payment
+                      </Button>
+                    </Td>
                   </Tr>
                 ))}
             </Tbody>
-            <Tfoot>
+            {/* <Tfoot>
               <Tr>
                 <Th fontWeight={"bold"}>Customer</Th>
                 <Th fontWeight={"bold"}>Service</Th>
@@ -156,7 +220,7 @@ export default function AdminAppointmentComponent() {
                 <Th fontWeight={"bold"}>Date Time</Th>
                 <Th fontWeight={"bold"}>Status</Th>
               </Tr>
-            </Tfoot>
+            </Tfoot> */}
           </Table>
         </TableContainer>
       </Base>

@@ -84,7 +84,6 @@ const SidebarContent = ({ onClose, history, ...rest }) => {
     }
   };
   const NavMenu = returnMenu();
-  console.log("nav menu", NavMenu);
   return (
     <Box
       transition="3s ease"
