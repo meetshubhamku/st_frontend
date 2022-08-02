@@ -200,3 +200,30 @@ export const deleteAppointment = async (id) => {
   });
   return res.json();
 };
+
+export const getPaymentToken = async () => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(`${API}/${user.id}/${user.userType}/payment/token`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.json();
+};
+
+export const createTokenApi = async (data) => {
+  const { user, token } = isAuthenticated();
+  const res = await fetch(`${API}/${user.id}/${user.userType}/payment`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};
