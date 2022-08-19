@@ -42,7 +42,7 @@ export default function AdminChartComponent() {
     <>
       <Suspense fallback={<CustomLoader />}>
         <Base>
-          <form
+          {/* <form
             style={{
               marginBottom: "15px",
               paddingLeft: "5px",
@@ -94,7 +94,7 @@ export default function AdminChartComponent() {
                 Search
               </Button>
             </Flex>
-          </form>
+          </form> */}
           <Flex>
             <PieChart />
             <HorizontalChart />

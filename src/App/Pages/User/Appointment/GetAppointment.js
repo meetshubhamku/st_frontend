@@ -63,7 +63,7 @@ export default function GetAppointment() {
   const getAppointentmentListFunction = async () => {
     const res = await getAppointmentByUser();
     if (res.success === true) {
-      setAppointmentList(res.data);
+      setAppointmentList(res.data.reverse());
     } else {
       setAppointmentList([]);
     }

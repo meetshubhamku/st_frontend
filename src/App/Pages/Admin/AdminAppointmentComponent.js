@@ -14,8 +14,10 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
+
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import CustomLoader from "../../Components/CustomLoader";
 import Base from "../../Components/Base";
 import {
   cancelAppointment,
@@ -23,6 +25,7 @@ import {
   updateAppointment,
 } from "../../Helpers/Appointment";
 import appStatus from "../User/Appointment/AppoinentStatus";
+import PaymentButton from "../Admin/Payment/PaymentButton";
 
 export default function AdminAppointmentComponent() {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -33,7 +36,9 @@ export default function AdminAppointmentComponent() {
       if (res.data.length > 0) {
         cancelPastAppointment(res.data);
       }
-      setAppointmentList(res.data);
+      console.log("app list : ", res.data);
+
+      setAppointmentList(res.data.reverse());
     } else {
       setAppointmentList([]);
     }
@@ -127,50 +132,51 @@ export default function AdminAppointmentComponent() {
 
   return (
     <>
-      <Base>
-        <Text fontSize="4xl" fontWeight="bold">
-          Appointments
-        </Text>
-        <Box my={2} py={2}>
-          <Flex justifyContent={"space-between"}>
-            <Select
-              variant="outline"
-              maxW={200}
-              onChange={(event) => {
-                filterAppointmentWithStatus(event.target.value);
-              }}
-            >
-              {appStatus.map((item, index) => (
-                <option key={index} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </Select>
-          </Flex>
-        </Box>
-        <TableContainer bg={"white"} px={5} py={5}>
-          <Table size="sm">
-            <Thead>
-              <Tr>
-                <Th fontWeight={"bold"}>Customer</Th>
-                <Th fontWeight={"bold"}>Service</Th>
-                <Th fontWeight={"bold"}>Price</Th>
-                <Th fontWeight={"bold"}>Date Time</Th>
-                <Th fontWeight={"bold"}>Status</Th>
-                <Th fontWeight={"bold"}>Payment</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {appointmentList.length > 0 &&
-                appointmentList.map((item, index) => (
-                  <Tr key={index}>
-                    <Td>
-                      {item.user.firstname} {item.user.lastname}
-                    </Td>
-                    <Td>{item.service.name}</Td>
-                    <Td>{item.service.price}</Td>
-                    <Td>
-                      {/* <Button
+      <Suspense fallback={<CustomLoader />}>
+        <Base>
+          <Text fontSize="4xl" fontWeight="bold">
+            Appointments
+          </Text>
+          <Box my={2} py={2}>
+            <Flex justifyContent={"space-between"}>
+              <Select
+                variant="outline"
+                maxW={200}
+                onChange={(event) => {
+                  filterAppointmentWithStatus(event.target.value);
+                }}
+              >
+                {appStatus.map((item, index) => (
+                  <option key={index} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+              </Select>
+            </Flex>
+          </Box>
+          <TableContainer bg={"white"} px={5} py={5}>
+            <Table size="sm">
+              <Thead>
+                <Tr>
+                  <Th fontWeight={"bold"}>Customer</Th>
+                  <Th fontWeight={"bold"}>Service</Th>
+                  <Th fontWeight={"bold"}>Price</Th>
+                  <Th fontWeight={"bold"}>Date Time</Th>
+                  <Th fontWeight={"bold"}>Status</Th>
+                  <Th fontWeight={"bold"}>Payment</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {appointmentList.length > 0 &&
+                  appointmentList.map((item, index) => (
+                    <Tr key={index}>
+                      <Td>
+                        {item.user.firstname} {item.user.lastname}
+                      </Td>
+                      <Td>{item.service.name}</Td>
+                      <Td>{item.service.price}</Td>
+                      <Td>
+                        {/* <Button
                         colorScheme="red"
                         my={1}
                         size="xs"
@@ -178,41 +184,44 @@ export default function AdminAppointmentComponent() {
                       >
                         Delete
                       </Button> */}
-                      {moment(item.date).format("MMM DD, YYYY")} {item.time}
-                    </Td>
-                    <Td>
-                      <Select
-                        value={item.status}
-                        onChange={(event) => {
-                          updateStatusFunction(item, event.target.value);
-                        }}
-                      >
-                        {appStatus.map((stat, index) => (
-                          <option
-                            key={index}
-                            value={stat.value}
-                            // disabled={stat.label === appStatus[5].label}
-                          >
-                            {stat.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </Td>
-                    <Td>
-                      <Button
-                        variant="link"
-                        disabled={item.status === appStatus[5].value}
-                        onClick={() => {
-                          alert("payment");
-                        }}
-                      >
-                        Payment
-                      </Button>
-                    </Td>
-                  </Tr>
-                ))}
-            </Tbody>
-            {/* <Tfoot>
+                        {moment(item.date).format("MMM DD, YYYY")} {item.time}
+                      </Td>
+                      <Td>
+                        <Select
+                          value={item.status}
+                          onChange={(event) => {
+                            updateStatusFunction(item, event.target.value);
+                          }}
+                        >
+                          {appStatus.map((stat, index) => (
+                            <option
+                              key={index}
+                              value={stat.value}
+                              // disabled={stat.label === appStatus[5].label}
+                            >
+                              {stat.label}
+                            </option>
+                          ))}
+                        </Select>
+                      </Td>
+                      <Td>
+                        {/* <Button
+                          variant="link"
+                          disabled={item.status === appStatus[5].value}
+                          onClick={() => {
+                            alert("payment");
+                          }}
+                        >
+                          Payment
+                        </Button> */}
+                        {item.status !== appStatus[5].value && (
+                          <PaymentButton item={item} />
+                        )}
+                      </Td>
+                    </Tr>
+                  ))}
+              </Tbody>
+              {/* <Tfoot>
               <Tr>
                 <Th fontWeight={"bold"}>Customer</Th>
                 <Th fontWeight={"bold"}>Service</Th>
@@ -221,9 +230,10 @@ export default function AdminAppointmentComponent() {
                 <Th fontWeight={"bold"}>Status</Th>
               </Tr>
             </Tfoot> */}
-          </Table>
-        </TableContainer>
-      </Base>
+            </Table>
+          </TableContainer>
+        </Base>
+      </Suspense>
     </>
   );
 }

@@ -139,7 +139,7 @@ export default function CustomerComponent() {
                           {item.is_blocked ? (
                             <Badge
                               colorScheme="red"
-                              variant="subtle"
+                              variant="solid"
                               px={2}
                               py={1}
                             >
@@ -148,7 +148,7 @@ export default function CustomerComponent() {
                           ) : (
                             <Badge
                               colorScheme="green"
-                              variant="subtle"
+                              variant="solid"
                               px={2}
                               py={1}
                             >
@@ -159,7 +159,7 @@ export default function CustomerComponent() {
                         <Td>
                           {item.is_blocked ? (
                             <Button
-                              variant="solid"
+                              variant="link"
                               color="green"
                               onClick={() => unBlockUserFunction(item.id)}
                             >
@@ -167,7 +167,7 @@ export default function CustomerComponent() {
                             </Button>
                           ) : (
                             <Button
-                              variant="solid"
+                              variant="link"
                               color="red"
                               onClick={() => blockUserFunction(item.id)}
                             >

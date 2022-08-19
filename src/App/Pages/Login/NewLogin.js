@@ -155,7 +155,9 @@ const NewLogin = ({ userType }) => {
                     justify={"space-between"}
                   >
                     <Checkbox>Remember me</Checkbox>
-                    <Link color={"blue.400"}>Forgot password?</Link>
+                    <Link color={"blue.400"}>
+                      <NavLink to="/forgotpassword">Forgot password?</NavLink>
+                    </Link>
                   </Stack>
                   <Button
                     disabled={

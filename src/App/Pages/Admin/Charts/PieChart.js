@@ -58,8 +58,8 @@ export default function PieChart() {
 
   const getChartDataFunction = async () => {
     const res = await getAppointmentsByDate(
-      moment().startOf("week").format("YYYY-MM-DD"),
-      moment().endOf("week").format("YYYY-MM-DD")
+      moment().startOf("month").format("YYYY-MM-DD"),
+      moment().endOf("month").format("YYYY-MM-DD")
     );
     if (res.success === true) {
       let tempLables = [];
@@ -97,7 +97,7 @@ export default function PieChart() {
           )}
         </div>
         <Text textAlign={"center"} mt={3}>
-          Service stats this week
+          Service stats this month
         </Text>
         <Text textAlign={"center"} fontSize="xs" my={1}>
           {moment().startOf("week").format("MMM DD, YYYY")} -{" "}

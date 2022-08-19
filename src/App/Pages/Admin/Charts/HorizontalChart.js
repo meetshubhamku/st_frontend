@@ -69,8 +69,8 @@ export default function HorizontalChart() {
 
   const getAnalytics = async () => {
     const res = await getAppointmentsByServiceCount(
-      moment().startOf("week").format("YYYY-MM-DD"),
-      moment().endOf("week").format("YYYY-MM-DD")
+      moment().startOf("month").format("YYYY-MM-DD"),
+      moment().endOf("month").format("YYYY-MM-DD")
     );
     if (res.success === true) {
       let tempLables = [];
@@ -115,7 +115,7 @@ export default function HorizontalChart() {
         )}
       </div>
       <Text textAlign={"center"} my={2} py={2}>
-        Service count this week
+        Service count this month
         <Text textAlign={"center"} fontSize="xs" my={1}>
           {moment().startOf("week").format("MMM DD, YYYY")} -{" "}
           {moment().endOf("week").format("MMM DD, YYYY")}

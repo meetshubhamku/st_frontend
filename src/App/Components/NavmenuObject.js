@@ -53,7 +53,7 @@ const NavmenuObject = {
       {
         label: "Announcement",
         to: "/dashboard/admin/announcement",
-        icon: GrAnnounce,
+        icon: MdOutlineLocalOffer,
       },
     ],
   },

@@ -87,8 +87,9 @@ const SidebarContent = ({ onClose, history, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
-      // bg={"green.100"}
+      // bg={useColorModeValue("white", "gray.900")}
+      bg={"primary.500"}
+      color="white"
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
@@ -127,7 +128,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "green.100",
+          bg: "white",
           color: "black",
         }}
         {...rest}
@@ -137,7 +138,7 @@ const NavItem = ({ icon, children, ...rest }) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: "white",
+              color: "block",
             }}
             as={icon}
           />
@@ -167,7 +168,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       <IconButton
         display={{ base: "flex", md: "none" }}
         onClick={onOpen}
-        variant="outline"
+        variant="solid"
         aria-label="open menu"
         icon={<FiMenu />}
       />
